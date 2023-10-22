@@ -1,12 +1,33 @@
 /** @format */
 
+const { Op } = require("sequelize");
 const { User } = require("../models/index");
 
 const UserService = {
-  async getAll() {
-    console.log("first");
-    const users = await User.findAll();
-    return users;
+  async getAll({ page = 1, limit = 10, keyword = "" }) {
+    const offset = (page - 1) * limit;
+
+    const whereClause = {
+      fullName: {
+        [Op.like]: `%${keyword}%`,
+      },
+    };
+
+    const users = await User.findAndCountAll({
+      where: whereClause,
+      limit: Number(limit),
+      offset: Number(offset),
+    });
+
+    const totalItems = users.count;
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return {
+      page,
+      limit,
+      totalPages,
+      users,
+    };
   },
 
   async getById(userId) {
