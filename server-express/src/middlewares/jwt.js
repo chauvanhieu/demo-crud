@@ -1,20 +1,21 @@
-const jwt = require('jsonwebtoken');
+const jwtService = require("../services/jwt.service");
 
+function verifyTokenMiddleware(req, res, next) {
+  const token = req.header("Authorization");
 
-const secretKey = 'dsadsadsadsa';
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 
-const authenticateJWT = (req, res, next) => {
-    const token = req.headers.authorization.split(" ")[1]
+  const decoded = jwtService.verifyToken(token);
 
-    if (token) {
-        jwt.verify(token, secretKey, (err, user) => {
-            if (err) {
-                return res.status(403).json('Không có quyền truy cập :)))');
-            }
-            next();
-        });
-    } else {
-        res.sendStatus(401);
-    }
-};
-module.exports = { authenticateJWT }
+  if (!decoded) {
+    return res.status(401).json({ message: "Token is invalid" });
+  }
+
+  req.user = decoded;
+
+  next();
+}
+
+module.exports = verifyTokenMiddleware;

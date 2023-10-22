@@ -2,8 +2,29 @@
 
 const { Op } = require("sequelize");
 const { User } = require("../models/index");
+const { generateToken } = require("./jwt.service");
 
 const UserService = {
+  async login(username, password) {
+    try {
+      const user = await User.findOne({ where: { username } });
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      const isPasswordValid = password === user.password;
+
+      if (!isPasswordValid) {
+        throw new Error("Incorrect password");
+      }
+
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   async getAll({ page = 1, limit = 10, keyword = "" }) {
     const offset = (page - 1) * limit;
 
@@ -62,9 +83,6 @@ const UserService = {
     }
     return "User deleted successfully";
   },
-
-
-
 };
 
 module.exports = UserService;
