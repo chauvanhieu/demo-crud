@@ -35,6 +35,7 @@ function UserDetail() {
   async function handleUpdate(e) {
     e.preventDefault();
     await UserService.update(id, user);
+
     navigate("/users");
   }
 

@@ -1,3 +1,5 @@
+/** @format */
+
 const { generateToken } = require("../services/jwt.service");
 const UserService = require("../services/user.service");
 
@@ -12,8 +14,7 @@ const AuthController = {
 
       return res.status(200).json({ user, access_token });
     } catch (error) {
-      console.log(error);
-      res.status(401).json({ error: "Authentication failed" });
+      res.status(401).json({ message: error.message });
     }
   },
 };
