@@ -1,16 +1,27 @@
 const { User } = require("../models/index");
 
+const jwt = require('jsonwebtoken');
+
+
+const secretKey = 'dsadsadsadsa';
+
 const AuthController = {
-
     async login(req, res) {
-        const { username, password } = req.body
-        console.log(req.body);
+        try {
+            const { username, password } = req.body;
+            const user = await User.findOne({ where: { username, password } });
 
-        const users = await User.getAll()
-        if (users) {
-            const loginSuccess = users.find((u) => u.username === username && u.password === password);
-            console.log("LOGIN : " + loginSuccess);
-            return users;
+            if (user) {
+
+                const payload = { sub: user.username };
+                const access_token = jwt.sign(payload, secretKey);
+
+                return res.json({ access_token });
+            } else {
+                return res.status(401).json({ message: 'Đăng nhập không thành công' });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: 'Đã xảy ra lỗi' });
         }
     }
 
