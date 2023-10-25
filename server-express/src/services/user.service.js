@@ -61,6 +61,9 @@ const UserService = {
     }
     return "User deleted successfully";
   },
+
+
+
 };
 
 module.exports = UserService;
