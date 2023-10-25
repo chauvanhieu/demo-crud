@@ -6,6 +6,7 @@ const { User } = require("../models/index");
 const UserService = {
   async getAll({ page = 1, limit = 10, keyword = "" }) {
     const offset = (page - 1) * limit;
+
     const whereClause = {
       fullName: {
         [Op.like]: `%${keyword}%`,
@@ -14,8 +15,8 @@ const UserService = {
 
     const users = await User.findAndCountAll({
       where: whereClause,
-      limit: limit,
-      offset: offset,
+      limit: Number(limit),
+      offset: Number(offset),
     });
 
     const totalItems = users.count;

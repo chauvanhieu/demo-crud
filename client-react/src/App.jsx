@@ -3,12 +3,11 @@ import AppRouter from "./router";
 
 function App() {
   return (
-    <>
-      <h1>hello world</h1>
+    <div className="container">
       <Link to="/users">Trang users</Link>
       <Link to="/login">Trang login</Link>
       <AppRouter />
-    </>
+    </div>
   );
 }
 

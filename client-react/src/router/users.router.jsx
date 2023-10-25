@@ -6,6 +6,7 @@ function UserRouter() {
   return (
     <>
       <Routes>
+        <Route path="/create" element={<UserDetail />} />
         <Route path="/:id" element={<UserDetail />} />
         <Route path="/" element={<UsersPage />} />
       </Routes>
