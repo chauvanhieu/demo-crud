@@ -5,7 +5,8 @@ const UserService = require("../services/user.service");
 const UserController = {
   async getAll(req, res) {
     try {
-      const users = await UserService.getAll();
+      const { page = 1, limit = 5, keyword } = req.query;
+      const users = await UserService.getAll(page, limit, keyword);
       res.json(users);
     } catch (error) {
       res.status(500).json({ error: error.message });
