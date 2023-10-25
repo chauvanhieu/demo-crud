@@ -1,3 +1,5 @@
+/** @format */
+
 import AxiosService from "./axios.service";
 
 const AuthService = {
@@ -6,6 +8,7 @@ const AuthService = {
       url: "login",
       data: { username, password },
     });
+    localStorage.setItem("access_token", data.access_token);
 
     return data;
   },

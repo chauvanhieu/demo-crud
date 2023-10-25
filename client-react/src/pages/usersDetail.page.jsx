@@ -1,3 +1,5 @@
+/** @format */
+
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UserService from "./../services/user.service";
@@ -78,14 +80,14 @@ function UserDetail() {
           />
         </div>
         {isEdit ? (
-          <>
+          <div className="mt-2">
             <button className="btn btn-success" onClick={handleUpdate}>
               Update
-            </button>
-            <button onClick={removeUser} className="btn btn-success">
+            </button>{" "}
+            <button onClick={removeUser} className="btn btn-danger">
               Remove
             </button>
-          </>
+          </div>
         ) : (
           <button className="btn btn-success" onClick={handleCreate}>
             Create

@@ -1,3 +1,5 @@
+/** @format */
+
 const jwtService = require("../services/jwt.service");
 
 function verifyTokenMiddleware(req, res, next) {
@@ -7,7 +9,7 @@ function verifyTokenMiddleware(req, res, next) {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
-  const decoded = jwtService.verifyToken(token);
+  const decoded = jwtService.verifyToken(token.split(" ")[1]);
 
   if (!decoded) {
     return res.status(401).json({ message: "Token is invalid" });
