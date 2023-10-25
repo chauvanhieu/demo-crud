@@ -4,11 +4,9 @@ import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import AuthService from "../services/auth.service";
-import { useHistory } from "react-router-dom";
 import "./style.css";
 
 function LoginPage() {
-  const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -18,7 +16,6 @@ function LoginPage() {
     try {
       const accessToken = await AuthService.login(username, password);
       console.log("Login successful. Access token:", accessToken);
-      history.push("./users.page.jsx");
     } catch (error) {
       setError("Đăng nhập không thành công, vui lòng thử lại!");
       console.error("Login error:", error);
