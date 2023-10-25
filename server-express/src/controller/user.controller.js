@@ -6,7 +6,7 @@ const UserController = {
   async getAll(req, res) {
     try {
       const { page = 1, limit = 5, keyword } = req.query;
-      const users = await UserService.getAll(page, limit, keyword);
+      const users = await UserService.getAll({ page, limit, keyword });
       res.json(users);
     } catch (error) {
       res.status(500).json({ error: error.message });
