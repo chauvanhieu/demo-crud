@@ -9,7 +9,7 @@ const UserController = {
       const users = await UserService.getAll({ page, limit, keyword });
       res.json(users);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ message: error.message });
     }
   },
 
@@ -19,7 +19,7 @@ const UserController = {
       const user = await UserService.getById(userId);
       res.json(user);
     } catch (error) {
-      res.status(404).json({ error: error.message });
+      res.status(404).json({ message: error.message });
     }
   },
 
@@ -29,7 +29,7 @@ const UserController = {
       const newUser = await UserService.create(userData);
       res.status(201).json(newUser);
     } catch (error) {
-      res.status(400).json({ error: error.message });
+      res.status(400).json({ message: error.message });
     }
   },
 
@@ -40,7 +40,7 @@ const UserController = {
       const result = await UserService.update(userId, userData);
       res.json({ message: result });
     } catch (error) {
-      res.status(404).json({ error: error.message });
+      res.status(404).json({ message: error.message });
     }
   },
 
@@ -50,7 +50,7 @@ const UserController = {
       const result = await UserService.delete(userId);
       res.json({ message: result });
     } catch (error) {
-      res.status(404).json({ error: error.message });
+      res.status(404).json({ message: error.message });
     }
   },
 };
