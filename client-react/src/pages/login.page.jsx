@@ -1,27 +1,20 @@
-/** @format */
-
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import AuthService from "../services/auth.service";
-import { useHistory } from "react-router-dom";
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const accessToken = await AuthService.login(username, password);
-      console.log("Login successful. Access token:", accessToken);
-      history.push("./users.page.jsx");
-    } catch (error) {
-      setError("Đăng nhập không thành công, vui lòng thử lại!");
-      console.error("Login error:", error);
+    const accessToken = await AuthService.login(username, password);
+    if (accessToken) {
+      navigate("/users");
     }
   };
 
@@ -49,8 +42,6 @@ function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
-
-            {error && <div className="text-danger">{error}</div>}
 
             <Button variant="primary" type="submit">
               Login

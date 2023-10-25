@@ -53,8 +53,6 @@ const UserController = {
       res.status(404).json({ error: error.message });
     }
   },
-
-
 };
 
 module.exports = UserController;
