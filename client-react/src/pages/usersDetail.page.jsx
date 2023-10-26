@@ -30,6 +30,7 @@ function UserDetail() {
   const removeUser = async (e) => {
     e.preventDefault();
     await UserService.delete(id);
+    navigate("/users");
   };
 
   async function handleUpdate(e) {
