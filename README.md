@@ -32,7 +32,7 @@ Repository gồm thư mục "server-express" chạy ứng dụng expressjs va�
 
    - Ứng dụng web gồm chức năng CRUD cho model User
    - http://localhost:5173/users : xem danh sách users
-   - Để thao tác Create, Update, Delelte cần login => http://localhost:5173/login
+   - Để thao tác Create, Update, Delete cần login => http://localhost:5173/login
    - username : admin
    - password : 123
      (\* Cần import file "demo-express.sql")
