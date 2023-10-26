@@ -17,7 +17,7 @@ File "demo-express.sql" dùng để import vào database mysql.
    - database password: (null)
    - database host: localhost
    - Import file "demo_express.sql" ở thư mục chinh của repository vào database
-
+   - Có thể cấu hình tùy chỉnh database ở : /server-express/src/configs/mysql.js
 4. Chạy ứng dụng express
 
    - cd server-express
