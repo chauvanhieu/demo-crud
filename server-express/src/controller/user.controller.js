@@ -47,6 +47,12 @@ const UserController = {
   async delete(req, res) {
     try {
       const userId = req.params.id;
+      const { user } = req;
+
+      if (user.id === Number(userId)) {
+        throw Error("Không thể xóa tài khoản của chính bạn");
+      }
+
       const result = await UserService.delete(userId);
       res.json({ message: result });
     } catch (error) {

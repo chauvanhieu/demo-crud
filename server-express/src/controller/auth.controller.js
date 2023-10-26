@@ -10,7 +10,7 @@ const AuthController = {
 
       const user = await UserService.login(username, password);
 
-      const access_token = generateToken({ user });
+      const access_token = generateToken({ payload: user });
 
       return res.status(200).json({ user, access_token });
     } catch (error) {
