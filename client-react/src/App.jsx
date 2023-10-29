@@ -3,6 +3,7 @@
 import { Link } from "react-router-dom";
 import AppRouter from "./router";
 import { ToastContainer } from "react-toastify";
+import Header from "./component/Header/header";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         pauseOnHover
         theme="colored"
       />
-      <Link to="/users">Trang users</Link> <Link to="/login">Trang login</Link>
+      <Header />
       <AppRouter />
     </div>
   );

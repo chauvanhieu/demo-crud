@@ -12,7 +12,7 @@ function UserDetail() {
     username: "",
     password: "",
   });
-  const [isEdit, setIsEdit] = useState(!!id);
+  const [isEdit, setIsEdit] = useState(id);
 
   useEffect(() => {
     const getUser = async () => {
