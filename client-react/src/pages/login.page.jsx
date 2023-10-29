@@ -1,21 +1,22 @@
+/** @format */
+
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import AuthService from "../services/auth.service";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { login } from "../redux/auth.slice";
 function LoginPage() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const accessToken = await AuthService.login(username, password);
-    if (accessToken) {
-      navigate("/users");
-    }
+
+    dispatch(login({ username, password, navigate }));
   };
 
   return (
