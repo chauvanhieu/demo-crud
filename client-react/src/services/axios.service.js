@@ -1,4 +1,7 @@
+/** @format */
+
 import axios from "axios";
+import { toast } from "react-toastify";
 
 class AxiosService {
   constructor() {
@@ -7,8 +10,7 @@ class AxiosService {
   }
 
   initializeHttpClient() {
-    //     const baseURL = import.meta.env.VITE_REACT_API_URL;
-    const baseURL = "http://localhost:3000/";
+    const baseURL = import.meta.env.VITE_BACKEND_URL;
 
     this.httpClient = axios.create({
       baseURL,
@@ -61,10 +63,17 @@ class AxiosService {
     if (error.response) {
       console.error("Response Error:", error.response.data);
       console.error("Status Code:", error.response.status);
+
+      const errorMessage =
+        error.response.data.message ||
+        "Có lỗi xảy ra trong quá trình xử lý yêu cầu.";
+      toast.error(errorMessage);
     } else if (error.request) {
       console.error("Request Error:", error.request);
+      toast.error("Không thể kết nối đến máy chủ.");
     } else {
       console.error("Error:", error.message);
+      toast.error("Có lỗi xảy ra.");
     }
   }
 }

@@ -2,7 +2,6 @@
 
 const { Op } = require("sequelize");
 const { User } = require("../models/index");
-const { generateToken } = require("./jwt.service");
 
 const UserService = {
   async login(username, password) {
@@ -10,13 +9,13 @@ const UserService = {
       const user = await User.findOne({ where: { username } });
 
       if (!user) {
-        throw new Error("User not found");
+        throw new Error("Tài khoản không tồn tại");
       }
 
       const isPasswordValid = password === user.password;
 
       if (!isPasswordValid) {
-        throw new Error("Incorrect password");
+        throw new Error("Mật khẩu không đúng");
       }
 
       return user;
@@ -60,17 +59,35 @@ const UserService = {
   },
 
   async create(userData) {
-    const user = await User.create(userData);
-    return user;
+    const existingUser = await User.findOne({
+      where: { username: userData.username },
+    });
+
+    if (existingUser) {
+      throw new Error("Tên tài khoản đã tồn tại");
+    }
+
+    return await User.create(userData);
   },
 
   async update(userId, userData) {
-    const [updated] = await User.update(userData, {
+    const existingUser = await User.findOne({
+      where: {
+        username: userData.username,
+        id: {
+          [Op.ne]: userId,
+        },
+      },
+    });
+
+    if (existingUser) {
+      throw new Error("Tên tài khoản đã tồn tại");
+    }
+
+    await User.update(userData, {
       where: { id: userId },
     });
-    if (updated === 0) {
-      throw new Error("User not found");
-    }
+
     return "User updated successfully";
   },
 

@@ -1,3 +1,5 @@
+/** @format */
+
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UserService from "./../services/user.service";
@@ -10,7 +12,7 @@ function UserDetail() {
     username: "",
     password: "",
   });
-  const [isEdit, setIsEdit] = useState(!!id);
+  const [isEdit, setIsEdit] = useState(id);
 
   useEffect(() => {
     const getUser = async () => {
@@ -28,11 +30,13 @@ function UserDetail() {
   const removeUser = async (e) => {
     e.preventDefault();
     await UserService.delete(id);
+    navigate("/users");
   };
 
   async function handleUpdate(e) {
     e.preventDefault();
     await UserService.update(id, user);
+
     navigate("/users");
   }
 
@@ -78,14 +82,14 @@ function UserDetail() {
           />
         </div>
         {isEdit ? (
-          <>
+          <div className="mt-2">
             <button className="btn btn-success" onClick={handleUpdate}>
               Update
-            </button>
-            <button onClick={removeUser} className="btn btn-success">
+            </button>{" "}
+            <button onClick={removeUser} className="btn btn-danger">
               Remove
             </button>
-          </>
+          </div>
         ) : (
           <button className="btn btn-success" onClick={handleCreate}>
             Create
