@@ -10,8 +10,7 @@ class AxiosService {
   }
 
   initializeHttpClient() {
-    //     const baseURL = import.meta.env.VITE_REACT_API_URL;
-    const baseURL = "http://localhost:3000/";
+    const baseURL = import.meta.env.VITE_BACKEND_URL;
 
     this.httpClient = axios.create({
       baseURL,
