@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UserService from "./../services/user.service";
+import { toast } from "react-toastify";
 
 function UserDetail() {
   const navigate = useNavigate();
@@ -35,17 +36,38 @@ function UserDetail() {
 
   async function handleUpdate(e) {
     e.preventDefault();
+    if (validateUser() === false) {
+      return;
+    }
     await UserService.update(id, user);
-
     navigate("/users");
   }
 
   async function handleCreate(e) {
     e.preventDefault();
-
+    if (validateUser() === false) {
+      return;
+    }
     await UserService.create(user);
     navigate("/users");
   }
+
+  const validateUser = () => {
+    if (!user.fullName) {
+      toast.warn("Hãy nhập tên đầy đủ!");
+      return false;
+    }
+    if (!user.username) {
+      toast.warn("Chưa có tên đăng nhập!");
+      return false;
+    }
+    if (!user.password) {
+      toast.warn("Chưa nhập mật khẩu");
+      return false;
+    }
+
+    return true;
+  };
 
   return (
     <div className="container">
