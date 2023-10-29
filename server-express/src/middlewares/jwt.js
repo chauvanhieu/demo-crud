@@ -1,20 +1,23 @@
-const jwt = require('jsonwebtoken');
+/** @format */
 
+const jwtService = require("../services/jwt.service");
 
-const secretKey = 'dsadsadsadsa';
+function verifyTokenMiddleware(req, res, next) {
+  const token = req.header("Authorization");
 
-const authenticateJWT = (req, res, next) => {
-    const token = req.headers.authorization.split(" ")[1]
+  if (!token) {
+    return res.status(401).json({ message: "Không có quyền truy cập" });
+  }
 
-    if (token) {
-        jwt.verify(token, secretKey, (err, user) => {
-            if (err) {
-                return res.status(403).json('Không có quyền truy cập :)))');
-            }
-            next();
-        });
-    } else {
-        res.sendStatus(401);
-    }
-};
-module.exports = { authenticateJWT }
+  const decoded = jwtService.verifyToken(token.split(" ")[1]);
+
+  if (!decoded) {
+    return res.status(401).json({ message: "Không có quyền truy cập" });
+  }
+
+  req.user = decoded;
+
+  next();
+}
+
+module.exports = verifyTokenMiddleware;

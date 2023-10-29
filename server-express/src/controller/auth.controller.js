@@ -1,31 +1,22 @@
-const { User } = require("../models/index");
+/** @format */
 
-const jwt = require('jsonwebtoken');
-
-
-const secretKey = 'dsadsadsadsa';
+const { generateToken } = require("../services/jwt.service");
+const UserService = require("../services/user.service");
 
 const AuthController = {
-    async login(req, res) {
-        try {
-            const { username, password } = req.body;
-            const user = await User.findOne({ where: { username, password } });
+  async login(req, res) {
+    try {
+      const { username, password } = req.body;
 
-            if (user) {
+      const user = await UserService.login(username, password);
 
-                const payload = { sub: user.username };
-                const access_token = jwt.sign(payload, secretKey);
+      const access_token = generateToken({ payload: user });
 
-                return res.json({ access_token });
-            } else {
-                return res.status(401).json({ message: 'Đăng nhập không thành công' });
-            }
-        } catch (error) {
-            return res.status(500).json({ message: 'Đã xảy ra lỗi' });
-        }
+      return res.status(200).json({ user, access_token });
+    } catch (error) {
+      res.status(401).json({ message: error.message });
     }
+  },
+};
 
-
-}
-
-module.exports = AuthController
+module.exports = AuthController;

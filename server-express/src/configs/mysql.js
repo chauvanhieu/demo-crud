@@ -1,11 +1,22 @@
 /** @format */
 
+const DATABASE_HOST = process.env.DATABASE_HOST;
+const DATABASE_NAME = process.env.DATABASE_NAME;
+const DATABASE_DIALECT = process.env.DATABASE_DIALECT;
+const DATABASE_USERNAME = process.env.DATABASE_USERNAME;
+const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
+
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize("demo_express", "root", "", {
-  host: "localhost",
-  dialect: "mysql",
-  logging: false,
-});
+const sequelize = new Sequelize(
+  DATABASE_NAME,
+  DATABASE_USERNAME,
+  DATABASE_PASSWORD,
+  {
+    host: DATABASE_HOST,
+    dialect: DATABASE_DIALECT,
+    logging: false,
+  }
+);
 
 sequelize
   .authenticate()

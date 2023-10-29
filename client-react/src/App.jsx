@@ -1,11 +1,25 @@
-import { Link } from "react-router-dom";
+/** @format */
+
 import AppRouter from "./router";
+import { ToastContainer } from "react-toastify";
+import Header from "./component/Header/header";
 
 function App() {
   return (
     <div className="container">
-      <Link to="/users">Trang users</Link>
-      <Link to="/login">Trang login</Link>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+      <Header />
       <AppRouter />
     </div>
   );
