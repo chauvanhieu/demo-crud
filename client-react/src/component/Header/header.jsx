@@ -20,7 +20,7 @@ function Header() {
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>
         <Link className="navbar-brand" to={"/"}>
-          <h1>DEMO</h1>
+          <h1>Todos</h1>
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -31,7 +31,7 @@ function Header() {
           </Nav>
           <Nav>
             <Nav.Link href="#">
-              {info && info.user && `Hello, ${info.user.username} !!`}
+              {info && info.user && `Hello, ${info.user.fullName} !!`}
             </Nav.Link>
 
             {isAuthentication ? (

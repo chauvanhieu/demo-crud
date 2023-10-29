@@ -3,7 +3,7 @@ const TaskService = require("../services/task.service");
 const TaskController = {
   getAll: async (req, res, next) => {
     try {
-      const user_id = req.user.id
+      const user_id = req.user.id;
       // if (!user_id) {
       //   throw new Error("Bạn cần phả đăng nhập !")
       // }
@@ -16,7 +16,7 @@ const TaskController = {
 
   create: async (req, res, next) => {
     try {
-      const user_id = req.user.id
+      const user_id = req.user.id;
 
       const taskData = req.body;
       const newTask = await TaskService.create(taskData, user_id);
@@ -30,7 +30,7 @@ const TaskController = {
     try {
       const id = req.params.id;
       if (!id) {
-        return res.status(404).json({ message: "Please enter your task id!" })
+        return res.status(404).json({ message: "Please enter your task id!" });
       }
       const task = await TaskService.getById(id);
       if (task) {
@@ -47,16 +47,12 @@ const TaskController = {
     try {
       const id = req.params.id;
       if (!id) {
-        return res.status(404).json({ message: "Please enter your task id!" })
+        return res.status(404).json({ message: "Please enter your task id!" });
       }
       const updatedTaskData = req.body;
       const updatedTask = await TaskService.update(id, updatedTaskData);
 
-      if (updatedTask) {
-        return res.json(updatedTask);
-      } else {
-        return res.status(404).json({ message: "Task not found" });
-      }
+      return res.status(200).json({ message: "Updated!" });
     } catch (error) {
       next(error);
     }
@@ -66,10 +62,10 @@ const TaskController = {
     try {
       const id = req.params.id;
       if (!id) {
-        return res.status(404).json({ message: "Please enter your task id!" })
+        return res.status(404).json({ message: "Please enter your task id!" });
       }
       await TaskService.delete(id);
-      return res.status(204).json({ message: "Deleted!" })
+      return res.status(204).json({ message: "Deleted!" });
     } catch (error) {
       next(error);
     }
