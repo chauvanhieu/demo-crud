@@ -1,6 +1,5 @@
 /** @format */
 
-import { Link } from "react-router-dom";
 import AppRouter from "./router";
 import { ToastContainer } from "react-toastify";
 import Header from "./component/Header/header";
