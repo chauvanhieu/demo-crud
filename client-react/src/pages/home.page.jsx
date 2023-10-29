@@ -1,12 +1,10 @@
 /** @format */
+import { useSelector } from "react-redux";
 import TaskTable from "./../component/Task/TaskTable";
 
 function HomePage() {
-  return (
-    <>
-      <TaskTable />
-    </>
-  );
+  const isAuthentication = useSelector((state) => state.auth.isAuthentication);
+  return <>{isAuthentication && <TaskTable />}</>;
 }
 
 export default HomePage;
