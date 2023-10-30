@@ -28,6 +28,9 @@ function Header() {
             <Link className="nav-link" to={"/users"}>
               Users list
             </Link>
+            <Link className="nav-link" to={"/k1/todo_list"}>
+              DnD_TodoList
+            </Link>
           </Nav>
           <Nav>
             <Nav.Link href="#">
