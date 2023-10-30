@@ -22,7 +22,7 @@ File "demo-express.sql" dùng để import vào database mysql.
 
    - cd server-express
    - npm install
-   - npm run start
+   - npm start
    - ứng dụng chạy ở : http://localhost:3000/
 
 5. Chạy ứng dụng reactjs

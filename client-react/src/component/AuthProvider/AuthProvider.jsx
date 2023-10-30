@@ -14,7 +14,7 @@ function AuthProvider({ children }) {
     }
   }, [isAuthentication, navigate]);
 
-  return { children };
+  return <>{children}</>;
 }
 
 export default AuthProvider;
